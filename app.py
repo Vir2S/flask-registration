@@ -18,9 +18,9 @@ db = SQLAlchemy(app)
 class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True)
-    password = db.Column(db.String(80))
-    email = db.Column(db.String, nullable=False)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    password = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String, unique=True, nullable=False)
 
     def __init__(self, username, password, email):
         self.username = username
