@@ -7,9 +7,11 @@ from email_validator import *
 
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = BaseConfig.DB_PATH
 app.config['SECRET_KEY'] = BaseConfig.SECRET_KEY
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 
