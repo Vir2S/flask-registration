@@ -37,7 +37,7 @@ def register():
     if request.method == 'POST':
 
         username = request.form['username']
-        print('username', username)
+
         user = User.query.filter_by(username=username).first()
 
         if user is not None:
