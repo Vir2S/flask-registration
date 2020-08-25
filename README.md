@@ -1,2 +1,2 @@
 # flask-registration
-Python Flask Registration with email confirmation
+Python Flask Registration With Email Validation
