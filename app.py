@@ -37,29 +37,26 @@ def index():
 def register():
 
     if request.method == 'POST':
-
-        username = request.form['username']
+        username = request.form.get('username', '')
 
         if check_username_validation(username):
-
             user = User.query.filter_by(username=username).first()
 
             if user is not None:
-
-                return 'User exists!'
+                return 'User exists!', 400
 
         else:
-            return 'Username is not valid. Must contains at least 5 symbols.'
+            return 'Username is not valid. Must contains at least 5 symbols.', 400
 
-        password = request.form['password']
+        password = request.form.get('password', '')
 
         if check_password_validation(password):
-            password = generate_password_hash(request.form['password'])
+            password = generate_password_hash(password)
 
         else:
-            return 'Password is not correct. Must contains more than 6 symbols.'
+            return 'Password is not correct. Must contains more than 6 symbols.', 400
 
-        email = request.form['email']
+        email = request.form.get('email', '')
 
         if check_email_validation(email):
 
@@ -75,8 +72,7 @@ def register():
             return redirect(url_for('index'))
 
         else:
-
-            return 'email is not valid.'
+            return 'email is not valid.', 400
 
     return render_template('register.html')
 
