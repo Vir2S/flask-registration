@@ -3,7 +3,7 @@ from flask import Flask, url_for, render_template, request, redirect, session
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from config import BaseConfig
-from email_validator import *
+from validators import *
 
 
 app = Flask(__name__)
@@ -40,17 +40,28 @@ def register():
 
         username = request.form['username']
 
-        user = User.query.filter_by(username=username).first()
+        if check_username_validation(username):
 
-        if user is not None:
+            user = User.query.filter_by(username=username).first()
 
-            return 'User exists!'
+            if user is not None:
+
+                return 'User exists!'
+
+        else:
+            return 'Username is not valid. Must contains at least 5 symbols.'
+
+        password = request.form['password']
+
+        if check_password_validation(password):
+            password = generate_password_hash(request.form['password'])
+
+        else:
+            return 'Password is not correct. Must contains more than 6 symbols.'
 
         email = request.form['email']
 
         if check_email_validation(email):
-
-            password = generate_password_hash(request.form['password'])
 
             new_user = User(
                 username=username,
